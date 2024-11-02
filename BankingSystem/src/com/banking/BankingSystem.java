@@ -1,20 +1,25 @@
-package com.banking;
+package com.bankingapp;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BankingSystem {
-    private Map<String, Customer> customers = new HashMap<>();
+    private List<Customer> customers;
 
-    public void addCustomer(Customer customer) {
-        if (!customers.containsKey(customer.getId())) {
-            customers.put(customer.getId(), customer);
-        } else {
-            throw new IllegalArgumentException("Customer ID already exists.");
-        }
+    public BankingSystem() {
+        customers = new ArrayList<>();
     }
 
-    public Customer findCustomer(String customerId) {
-        return customers.get(customerId);
+    public void addCustomer(String name, double initialBalance, String pin, String email) {
+        customers.add(new Customer(name, pin, initialBalance, email));
+    }
+
+    public Customer getCustomer(String name) {
+        for (Customer customer : customers) {
+            if (customer.getName().equalsIgnoreCase(name)) {
+                return customer;
+            }
+        }
+        return null;
     }
 }
